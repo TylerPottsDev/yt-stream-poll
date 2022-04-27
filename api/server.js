@@ -20,6 +20,12 @@ app.use((req, res, next) => {
 	next()
 })
 
+/**
+ * Create a new poll endpoint
+ * @param {string} title - The title of the poll
+ * @param {string[]} options - An array of strings representing the options
+ * @returns {object} - The created poll id
+ */
 app.post('/api/poll/new', async (req, res) => {
 	const { title, options } = req.body
 	
@@ -46,6 +52,12 @@ app.post('/api/poll/new', async (req, res) => {
 	}
 })
 
+/**
+ * Vote on a poll
+ * @param {string} id - The id of the poll
+ * @param {number} option - The index of the option to vote on
+ * @returns {void}
+ */
 app.post('/api/poll/vote', async (req, res) => {
 	const { id, option } = req.body
 
@@ -67,6 +79,11 @@ app.post('/api/poll/vote', async (req, res) => {
 	}
 })
 
+/**
+ * Toggles a poll as active or inactive
+ * @param {string} id - The id of the poll
+ * @returns {boolean} status - The new status of the poll
+ */
 app.post('/api/poll/toggle-active', async (req, res) => {
 	const { id } = req.body
 
@@ -89,6 +106,11 @@ app.post('/api/poll/toggle-active', async (req, res) => {
 	}
 })
 
+/**
+ * Get poll by id
+ * @param {string} id - The id of the poll
+ * @returns {object} - The poll
+ */
 app.get('/api/poll/:id', async (req, res) => {
 	const { id } = req.params
 
@@ -109,6 +131,11 @@ app.get('/api/poll/:id', async (req, res) => {
 	}
 })
 
+/**
+ * Get the poll results by id
+ * @param {string} id - The id of the poll
+ * @returns {object} - The poll results
+ */
 app.get('/api/poll/results/:id', async (req, res) => {
 	const { id } = req.params
 
