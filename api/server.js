@@ -156,4 +156,29 @@ app.get('/api/poll/results/:id', async (req, res) => {
 	}
 })
 
+/**
+ * Get the active poll
+ * @returns {object} - The active poll
+ * NOTE: This endpoint is not working, we'll come back to this
+ */
+app.get('/api/poll/active', async (req, res) => {
+	try {
+		const poll = await Poll.findOne({ active: true })
+		console.log(poll);
+
+		res.json({
+			success: true,
+			message: "Poll Found",
+			poll
+		})
+
+	} catch (err) {
+		res.status(400).json({
+			success: false,
+			message: err.message,
+			error: err
+		})
+	}
+})
+
 app.listen(port, () => console.log(`Server is running on ${host}:${port}`))

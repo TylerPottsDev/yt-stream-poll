@@ -1,4 +1,4 @@
-POST http://localhost:3000/api/poll/new HTTP/1.1
+POST http://localhost:5000/api/poll/new HTTP/1.1
 Content-Type: application/json
 
 {
@@ -15,9 +15,13 @@ POST http://localhost:5000/api/poll/toggle-active HTTP/1.1
 Content-Type: application/json
 
 {
-	"id": "6269397be2e7cc7962e4b7f0"
+	"id": "62698e399011ccd631b07baf"
 }
 
 ###
 
-GET http://localhost:3000/api/poll/results/6269397be2e7cc7962e4b7f0 HTTP/1.1
+GET http://localhost:5000/api/poll/results/62698e399011ccd631b07baf HTTP/1.1
+
+###
+
+GET http://localhost:5000/api/poll/active HTTP/1.1
