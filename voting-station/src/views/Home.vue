@@ -27,22 +27,24 @@ const vote = async (option) => {
 onMounted(async () => {
 	const res = await fetch(`${BASE_URL}/poll/active`)
 		.then(res => res.json())
-	
-	poll.value = {
-		title: res.poll.title,
-		options: res.poll.options,
-		votes: res.poll.votes
-	}
 
-	// TODO: Convert to a websocket connection
-	setInterval(async () => {
-		const res = await fetch(`${BASE_URL}/poll/results`)
-			.then(res => res.json())
-
-		if (res.success) {
-			poll.value.votes = res.votes 
+	if (res.poll != null) {
+		poll.value = {
+			title: res.poll.title,
+			options: res.poll.options,
+			votes: res.poll.votes
 		}
-	}, 1000)
+	
+		// TODO: Convert to a websocket connection
+		setInterval(async () => {
+			const res = await fetch(`${BASE_URL}/poll/results`)
+				.then(res => res.json())
+	
+			if (res.success) {
+				poll.value.votes = res.votes 
+			}
+		}, 1000)
+	}
 })
 </script>
 
