@@ -47,26 +47,28 @@ onMounted(async () => {
 </script>
 
 <template>
-	<main>
-		<h1>Voting Station</h1>
+	<main class="min-h-screen bg-gray-700 text-white py-8 text-center">
+		<h1 class="text-4xl font-black uppercase mb-8">Voting Station</h1>
 		<div v-if="poll">
-			<h3>{{ poll.title }}</h3>
+			<h3 class="text-2xl font-bold mb-4">{{ poll.title }}</h3>
 			<div v-if="!hasVoted">
-				<button v-for="(option, index) in poll.options" @click="() => vote(index)">
-					{{index}} {{ option }}
+				<button 
+					v-for="(option, index) in poll.options" 
+					@click="() => vote(index)"
+					class="block w-full max-w-sm mx-auto bg-gray-800 p-4 rounded mb-2 hover:bg-gray-600">
+					<span>{{ option }}</span>
 				</button>
 			</div>
 			<div v-else>
-				<p>You have voted!</p>
+				<p class="text-lg mb-4">You have voted!</p>
 				<!-- Show results -->
-				<div v-for="(vote, index) in poll.votes">{{ poll.options[index] }} {{ vote }}</div>
+				<div 
+					v-for="(vote, index) in poll.votes" 
+					class="bg-gray-800 w-full max-w-sm mx-auto p-4 rounded mb-2 flex justify-between">
+					<span>{{ poll.options[index] }}</span>
+					<span>{{ ((vote / poll.votes.reduce((partialSum, a) => partialSum + a, 0)) * 100) + "%" }}</span>
+				</div>
 			</div>
 		</div>
 	</main>
 </template>
-
-<style>
-body {
-	text-align: center;
-}
-</style>
