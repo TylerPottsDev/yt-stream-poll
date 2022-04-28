@@ -59,10 +59,10 @@ app.post('/api/poll/new', async (req, res) => {
  * @returns {void}
  */
 app.post('/api/poll/vote', async (req, res) => {
-	const { id, option } = req.body
+	const { option } = req.body
 
 	try {
-		const poll = await Poll.findById(id)
+		const poll = await Poll.findOne({ is_active: true })
 		poll.votes[option]++
 		await poll.save()
 
@@ -89,13 +89,13 @@ app.post('/api/poll/toggle-active', async (req, res) => {
 
 	try {
 		const poll = await Poll.findById(id)
-		poll.active = !poll.active
+		poll.is_active = !poll.is_active
 		await poll.save()
 
 		res.json({
 			success: true,
-			message: `Poll ${poll.active ? 'Activated' : 'Deactivated'}`,
-			status: poll.active
+			message: `Poll ${poll.is_active ? 'Activated' : 'Deactivated'}`,
+			status: poll.is_active
 		})
 	} catch (err) {
 		res.status(400).json({
@@ -111,7 +111,7 @@ app.post('/api/poll/toggle-active', async (req, res) => {
  * @param {string} id - The id of the poll
  * @returns {object} - The poll
  */
-app.get('/api/poll/:id', async (req, res) => {
+app.get('/api/poll/find/:id', async (req, res) => {
 	const { id } = req.params
 
 	try {
@@ -136,11 +136,9 @@ app.get('/api/poll/:id', async (req, res) => {
  * @param {string} id - The id of the poll
  * @returns {object} - The poll results
  */
-app.get('/api/poll/results/:id', async (req, res) => {
-	const { id } = req.params
-
+app.get('/api/poll/results', async (req, res) => {
 	try {
-		const { votes } = await Poll.findById(id)
+		const { votes } = await Poll.findOne({ is_active: true})
 
 		res.json({
 			success: true,
@@ -159,12 +157,10 @@ app.get('/api/poll/results/:id', async (req, res) => {
 /**
  * Get the active poll
  * @returns {object} - The active poll
- * NOTE: This endpoint is not working, we'll come back to this
  */
 app.get('/api/poll/active', async (req, res) => {
 	try {
-		const poll = await Poll.findOne({ active: true })
-		console.log(poll);
+		const poll = await Poll.findOne({is_active: true})
 
 		res.json({
 			success: true,

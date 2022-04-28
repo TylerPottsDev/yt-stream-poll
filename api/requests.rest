@@ -2,10 +2,12 @@ POST http://localhost:5000/api/poll/new HTTP/1.1
 Content-Type: application/json
 
 {
-	"title": "What's better, React or Vue?",
+	"title": "What's the better framework?",
 	"options": [
 		"React",
-		"Vue"
+		"Vue",
+		"Angular",
+		"Svelte"
 	] 
 }
 
@@ -15,12 +17,12 @@ POST http://localhost:5000/api/poll/toggle-active HTTP/1.1
 Content-Type: application/json
 
 {
-	"id": "62698e399011ccd631b07baf"
+	"id": "626a888afd7fbad237c64811"
 }
 
 ###
 
-GET http://localhost:5000/api/poll/results/62698e399011ccd631b07baf HTTP/1.1
+GET http://localhost:5000/api/poll/results HTTP/1.1
 
 ###
 
@@ -32,6 +34,6 @@ POST http://localhost:5000/api/poll/vote HTTP/1.1
 Content-Type: application/json
 
 {
-	"id": "62698e399011ccd631b07baf",
+	"id": "626a888afd7fbad237c64811",
 	"option": 1
 }

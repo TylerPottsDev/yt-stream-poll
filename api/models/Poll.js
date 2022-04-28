@@ -13,7 +13,7 @@ const PollSchema = new Schema({
 	votes: {
 		type: [Number]
 	},
-	active: {
+	is_active: {
 		type: Boolean,
 		default: false
 	}
